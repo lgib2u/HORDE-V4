@@ -3,6 +3,14 @@ const webpack = require('webpack');
 
 var config = {
   mode: "development",
+  stats: {
+    // Suppress known third-party warning: @huggingface/transformers uses import.meta in a way webpack flags
+    warningsFilter: (w) => {
+      const msg = typeof w === 'string' ? w : (w && w.message);
+      if (!msg) return true;
+      return !(/Critical dependency: 'import\.meta'/.test(msg) && /transformers/.test(msg));
+    },
+  },
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
