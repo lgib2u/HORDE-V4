@@ -106,7 +106,7 @@
   [name path-params]
   (case name
     :home
-    "Logseq"
+    "HORDE"
     :graphs
     "Graphs"
     :graph
@@ -141,7 +141,7 @@
                           block-name))]
       (or block-name'
           block-title
-          "Logseq"))
+          "HORDE"))
     :tag
     (str "#"  (:name path-params))
     :diff
@@ -149,8 +149,8 @@
     :settings
     "Settings"
     :import
-    "Import data into Logseq"
-    "Logseq"))
+    "Import data into HORDE"
+    "HORDE"))
 
 (defn update-page-title!
   [route]

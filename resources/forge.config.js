@@ -3,7 +3,7 @@ const fs = require('fs')
 
 module.exports = {
   packagerConfig: {
-    name: 'Logseq',
+    name: 'HORDE',
     icon: './icons/logseq_big_sur.icns',
     buildVersion: "88",
     appBundleId: "com.logseq.logseq",
@@ -32,7 +32,7 @@ module.exports = {
     {
       'name': '@electron-forge/maker-squirrel',
       'config': {
-        'name': 'Logseq',
+        'name': 'HORDE',
         'setupIcon': './icons/logseq.ico',
         'loadingGif': './icons/installing.gif',
         'certificateFile': process.env.CODE_SIGN_CERTIFICATE_FILE,
@@ -43,10 +43,10 @@ module.exports = {
     {
       'name': '@electron-forge/maker-wix',
       'config': {
-        name: 'Logseq',
+        name: 'HORDE',
         icon: path.join(__dirname, './icons/logseq.ico'),
         language: 1033,
-        manufacturer: 'Logseq',
+        manufacturer: 'HORDE',
         appUserModelId: 'com.logseq.logseq',
         upgradeCode: "3778eb84-a0ce-4109-9120-5d4315e0d7de",
         ui: {

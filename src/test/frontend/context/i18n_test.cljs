@@ -10,7 +10,7 @@
 (deftest translations
   (testing "ui translations"
     (state/set-preferred-language! :en)
-    (is (= "About Logseq"
+    (is (= "About HORDE"
            (i18n/t :help/about)))
 
     (state/set-preferred-language! :es)

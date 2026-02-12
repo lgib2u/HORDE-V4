@@ -201,3 +201,13 @@ html[data-font='mono'] .ls-block, .ls-font-mono {
 html[data-font='mono'][data-font-global='true'] {
   --ls-font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
 }
+
+/* HORDE: red transparent background */
+html[data-theme='light'] {
+  --ls-primary-background-color: rgba(254, 226, 226, 0.95);
+  --ls-secondary-background-color: rgba(254, 202, 202, 0.85);
+}
+html[data-theme='dark'] {
+  --ls-primary-background-color: rgba(127, 29, 29, 0.4);
+  --ls-secondary-background-color: rgba(153, 27, 27, 0.35);
+}
