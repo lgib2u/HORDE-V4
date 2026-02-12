@@ -202,12 +202,304 @@ html[data-font='mono'][data-font-global='true'] {
   --ls-font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
 }
 
-/* HORDE: red transparent background */
-html[data-theme='light'] {
-  --ls-primary-background-color: rgba(254, 226, 226, 0.95);
-  --ls-secondary-background-color: rgba(254, 202, 202, 0.85);
+/* HORDE: burgundy theme (darker red) + accents */
+html[data-theme='light'][data-color='logseq'] {
+  --ls-primary-background-color: rgba(69, 10, 10, 0.97) !important;
+  --ls-secondary-background-color: rgba(127, 29, 29, 0.92) !important;
+  --ls-tertiary-background-color: rgba(153, 27, 27, 0.88) !important;
+  --ls-quaternary-background-color: rgba(185, 28, 28, 0.82) !important;
+  --ls-primary-text-color: #fecaca !important;
+  --ls-secondary-text-color: #fef2f2 !important;
+  /* TL: header left icons (hamburger, search) visible on dark bg */
+  --ls-header-button-background: #fecaca !important;
+  /* TR: primary/accent (e.g. shortcut badge, primary buttons) – burgundy not teal */
+  --primary: 0 65% 28% !important;
+  --primary-foreground: 0 0% 98% !important;
+  --accent: 0 65% 28% !important;
+  --accent-foreground: 0 0% 98% !important;
+  --ring: 0 65% 38% !important;
+  /* Button, link, focus and selection – burgundy */
+  --ls-active-primary-color: #7f1d1d !important;
+  --ls-active-secondary-color: #991b1b !important;
+  --ls-link-text-color: #a16207 !important;
+  --ls-link-text-hover-color: #7f1d1d !important;
+  --ls-link-ref-text-color: var(--ls-link-text-color) !important;
+  --ls-link-ref-text-hover-color: var(--ls-link-text-hover-color) !important;
+  --ls-tag-text-color: var(--ls-link-text-color) !important;
+  --ls-tag-text-hover-color: var(--ls-link-text-hover-color) !important;
+  --ls-block-highlight-color: rgba(127, 29, 29, 0.4) !important;
+  --ls-selection-background-color: rgba(127, 29, 29, 0.5) !important;
+  --ls-focus-ring-color: rgba(127, 29, 29, 0.6) !important;
+  --ls-button-background-hsl: 0 65% 28% !important;
+  --ls-button-background: hsl(var(--ls-button-background-hsl)) !important;
+  --ls-modal-overlay-gradient-start: var(--ls-primary-background-color) !important;
+  --ls-modal-overlay-gradient-end: var(--ls-quaternary-background-color) !important;
 }
-html[data-theme='dark'] {
-  --ls-primary-background-color: rgba(127, 29, 29, 0.4);
-  --ls-secondary-background-color: rgba(153, 27, 27, 0.35);
+
+html[data-theme='dark'][data-color='logseq'] {
+  --ls-primary-background-color: rgba(45, 5, 5, 0.98) !important;
+  --ls-secondary-background-color: rgba(69, 10, 10, 0.95) !important;
+  --ls-tertiary-background-color: rgba(127, 29, 29, 0.5) !important;
+  --ls-quaternary-background-color: rgba(153, 27, 27, 0.45) !important;
+  /* TL: header left icons visible on dark bg */
+  --ls-header-button-background: #fecaca !important;
+  /* TR: primary/accent – burgundy not teal */
+  --primary: 0 65% 38% !important;
+  --primary-foreground: 0 0% 98% !important;
+  --accent: 0 65% 38% !important;
+  --accent-foreground: 0 0% 98% !important;
+  --ring: 0 65% 48% !important;
+  /* Button, link, focus and selection – burgundy */
+  --ls-active-primary-color: #b91c1c !important;
+  --ls-active-secondary-color: #dc2626 !important;
+  --ls-link-text-color: #fca5a5 !important;
+  --ls-link-text-hover-color: #fecaca !important;
+  --ls-link-ref-text-color: var(--ls-link-text-color) !important;
+  --ls-link-ref-text-hover-color: var(--ls-link-text-hover-color) !important;
+  --ls-tag-text-color: var(--ls-link-text-color) !important;
+  --ls-tag-text-hover-color: var(--ls-link-text-hover-color) !important;
+  --ls-block-highlight-color: rgba(69, 10, 10, 0.7) !important;
+  --ls-selection-background-color: rgba(127, 29, 29, 0.6) !important;
+  --ls-focus-ring-color: rgba(185, 28, 28, 0.5) !important;
+  --ls-button-background-hsl: 0 65% 38% !important;
+  --ls-button-background: hsl(var(--ls-button-background-hsl)) !important;
+  --ls-modal-overlay-gradient-start: var(--ls-primary-background-color) !important;
+  --ls-modal-overlay-gradient-end: var(--ls-quaternary-background-color) !important;
+  background-color: var(--ls-primary-background-color) !important;
+}
+
+html[data-theme='light'][data-color='logseq'] body,
+html[data-theme='dark'][data-color='logseq'] body,
+html[data-theme='light'][data-color='logseq'] #app-container,
+html[data-theme='dark'][data-color='logseq'] #app-container,
+html[data-theme='light'][data-color='logseq'] #left-container,
+html[data-theme='dark'][data-color='logseq'] #left-container,
+html[data-theme='light'][data-color='logseq'] #main-container,
+html[data-theme='dark'][data-color='logseq'] #main-container {
+  background-color: var(--ls-primary-background-color) !important;
+}
+
+/* Sidebar: use red so it doesn’t show teal */
+html[data-theme='dark'][data-color='logseq'] .left-sidebar-inner.as-container,
+html[data-theme='light'][data-color='logseq'] .left-sidebar-inner.as-container {
+  background-color: var(--ls-primary-background-color) !important;
+}
+
+/* TL: top-left header icons (hamburger, search) – light so visible on burgundy */
+html[data-theme='light'][data-color='logseq'] .cp__header > .l,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .l {
+  color: #fecaca !important;
+}
+html[data-theme='light'][data-color='logseq'] .cp__header > .l svg,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .l svg,
+html[data-theme='light'][data-color='logseq'] .cp__header > .l .ti,
+html[data-theme='light'][data-color='logseq'] .cp__header > .l .tie,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .l .ti,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .l .tie,
+html[data-theme='light'][data-color='logseq'] .cp__header > .l .button,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .l .button {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+/* TR: top-right header and right sidebar topbar – match theme, not teal */
+html[data-theme='light'][data-color='logseq'] .cp__header > .r,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r {
+  color: var(--ls-primary-text-color) !important;
+}
+html[data-theme='light'][data-color='logseq'] .cp__header > .r svg,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r svg,
+html[data-theme='light'][data-color='logseq'] .cp__header > .r .button,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r .button,
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar {
+  color: inherit !important;
+}
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar svg,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar svg,
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar .button,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar .button {
+  color: var(--ls-primary-text-color) !important;
+  fill: currentColor !important;
+}
+
+/* TR: override accent/gray in header & right topbar so hovers are burgundy */
+html[data-theme='light'][data-color='logseq'] .cp__header > .r,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r,
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar {
+  --lx-gray-03: var(--ls-tertiary-background-color);
+  --lx-accent-01: var(--ls-tertiary-background-color);
+  --lx-accent-02: var(--ls-quaternary-background-color);
+}
+
+/* TR: top-right button hover/focus/active – burgundy highlight (not teal/accent) */
+html[data-theme='light'][data-color='logseq'] .cp__header > .r .button:hover,
+html[data-theme='light'][data-color='logseq'] .cp__header > .r .button:focus-visible,
+html[data-theme='light'][data-color='logseq'] .cp__header > .r .button:active,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r .button:hover,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r .button:focus-visible,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r .button:active {
+  background-color: var(--ls-tertiary-background-color) !important;
+}
+
+html[data-theme='light'][data-color='logseq'] .cp__header > .r .ui__button.as-ghost:hover,
+html[data-theme='light'][data-color='logseq'] .cp__header > .r .ui__button.as-ghost:focus-visible,
+html[data-theme='light'][data-color='logseq'] .cp__header > .r .ui__button.as-ghost:active,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r .ui__button.as-ghost:hover,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r .ui__button.as-ghost:focus-visible,
+html[data-theme='dark'][data-color='logseq'] .cp__header > .r .ui__button.as-ghost:active {
+  background-color: var(--ls-tertiary-background-color) !important;
+}
+
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar .button:hover,
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar .button:focus-visible,
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar .button:active,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar .button:hover,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar .button:focus-visible,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar .button:active {
+  background-color: var(--ls-tertiary-background-color) !important;
+}
+
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar .ui__button:hover,
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar .ui__button:focus-visible,
+html[data-theme='light'][data-color='logseq'] .cp__right-sidebar-topbar .ui__button:active,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar .ui__button:hover,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar .ui__button:focus-visible,
+html[data-theme='dark'][data-color='logseq'] .cp__right-sidebar-topbar .ui__button:active {
+  background-color: var(--ls-tertiary-background-color) !important;
+}
+
+/* Card/modal popup: burgundy transparent background */
+html[data-theme='light'][data-color='logseq'] .ui__modal-panel,
+html[data-theme='dark'][data-color='logseq'] .ui__modal-panel,
+html[data-theme='light'][data-color='logseq'] .ui__modal-panel .panel-content,
+html[data-theme='dark'][data-color='logseq'] .ui__modal-panel .panel-content,
+html[data-theme='light'][data-color='logseq'] .ui__dialog-content,
+html[data-theme='dark'][data-color='logseq'] .ui__dialog-content,
+html[data-theme='light'][data-color='logseq'] .ls-card,
+html[data-theme='dark'][data-color='logseq'] .ls-card {
+  background: rgba(127, 29, 29, 0.9) !important;
+  backdrop-filter: blur(8px);
+}
+
+html[data-theme='dark'][data-color='logseq'] .ui__modal-panel,
+html[data-theme='dark'][data-color='logseq'] .ui__modal-panel .panel-content,
+html[data-theme='dark'][data-color='logseq'] .ui__dialog-content,
+html[data-theme='dark'][data-color='logseq'] .ls-card,
+html[data-theme='dark'][data-color='logseq'] #cards-modal {
+  background: rgba(69, 10, 10, 0.92) !important;
+}
+
+html[data-theme='light'][data-color='logseq'] #cards-modal {
+  background: rgba(127, 29, 29, 0.9) !important;
+}
+
+html[data-theme='light'][data-color='logseq'] .ui__modal-overlay div,
+html[data-theme='dark'][data-color='logseq'] .ui__modal-overlay div {
+  --from: var(--ls-primary-background-color) !important;
+  --to: var(--ls-quaternary-background-color) !important;
+}
+
+/* Button popouts: solid burgundy – no transparency */
+html[data-theme='light'][data-color='logseq'] .dropdown-wrapper,
+html[data-theme='light'][data-color='logseq'] .ui__dropdown-menu-content,
+html[data-theme='light'][data-color='logseq'] .ui__popover-content,
+html[data-theme='light'][data-color='logseq'] .ui__select-content,
+html[data-theme='light'][data-color='logseq'] .menu-links-wrapper,
+html[data-theme='light'][data-color='logseq'] .menu-links-outer,
+html[data-theme='light'][data-color='logseq'] .absolute-modal[data-modal-name],
+html[data-theme='light'][data-color='logseq'] div[data-radix-popper-content-wrapper] [role="menu"],
+html[data-theme='light'][data-color='logseq'] div[data-radix-menu-content] {
+  background-color: #7f1d1d !important;
+}
+
+html[data-theme='dark'][data-color='logseq'] .dropdown-wrapper,
+html[data-theme='dark'][data-color='logseq'] .ui__dropdown-menu-content,
+html[data-theme='dark'][data-color='logseq'] .ui__popover-content,
+html[data-theme='dark'][data-color='logseq'] .ui__select-content,
+html[data-theme='dark'][data-color='logseq'] .menu-links-wrapper,
+html[data-theme='dark'][data-color='logseq'] .menu-links-outer,
+html[data-theme='dark'][data-color='logseq'] .absolute-modal[data-modal-name],
+html[data-theme='dark'][data-color='logseq'] div[data-radix-popper-content-wrapper] [role="menu"],
+html[data-theme='dark'][data-color='logseq'] div[data-radix-menu-content] {
+  background-color: #450a0a !important;
+}
+
+html[data-theme='light'][data-color='logseq'] .ui__dropdown-menu-item:focus,
+html[data-theme='light'][data-color='logseq'] .ui__dropdown-menu-item.is-active,
+html[data-theme='light'][data-color='logseq'] div[data-radix-popper-content-wrapper] [data-radix-collection-item]:focus,
+html[data-theme='dark'][data-color='logseq'] .ui__dropdown-menu-item:focus,
+html[data-theme='dark'][data-color='logseq'] .ui__dropdown-menu-item.is-active,
+html[data-theme='dark'][data-color='logseq'] div[data-radix-popper-content-wrapper] [data-radix-collection-item]:focus {
+  background-color: var(--ls-tertiary-background-color) !important;
+}
+
+/* BLOCK CONTROLS */
+/* Hide Bullet Lines */
+.block-main-container + .block-children-container .block-children {
+  border-left: 1px solid rgba(255, 255, 255, 0) !important;
+  margin-left: 1px;
+}
+.ls-block:hover .block-main-container + .block-children-container .block-children {
+  border-left: 1px solid var(--lx-gray-04-alpha, var(--ls-guideline-color, var(--rx-gray-04-alpha))) !important;
+}
+
+/* Align Bullet and Arrow with paragraph text */
+.block-control-wrap {
+  margin: 2px 0 0 0;
+}
+
+/* Hide bullet by default */
+.bullet-link-wrap {
+  opacity: 0;
+}
+
+/* Show bullet */
+.ls-block:hover .bullet-link-wrap,
+.block-control .control-hide:has(.rotating-arrow.collapsed),
+.block-main-container:hover > div > .block-control .control-show {
+  opacity: 1 !important;
+}
+
+/* Arrow Settings */
+.control-hide, .control-show {
+  display: block !important;
+  opacity: 0;
+  background-color: inherit;
+  border-radius: 1em;
+  border: 0 !important;
+  padding: 0 0 0 3px !important;
+  margin: 1px -2px -1px 2px !important;
+  transition: 0.3s !important;
+  cursor: pointer !important;
+}
+
+.bullet-closed :is(.control-hide, .control-show) {
+  background-color: rgb(0, 0, 0, 0.5) !important;
+}
+
+:is(.control-hide, .control-show) svg {
+  transition: 0.3s !important;
+  margin: 0 !important;
+  transform-origin: 44% 50%;
+}
+
+.bullet-container:not(.typed-list).bullet-closed {
+  border: 0;
+  background: inherit;
+}
+
+.bullet {
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.bullet-link-wrap:hover > .bullet-container:not(.typed-list) {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.bullet-link-wrap:hover > .bullet-container:not(.typed-list) .bullet {
+  background-color: rgba(255, 255, 255, 1) !important;
+  transform: scale(1.5);
 }
