@@ -54,17 +54,28 @@
       (fs/mkdirSync lg-dir))
     (fix-win-path! lg-dir)))
 
+(defn get-builtin-plugin-paths
+  "Returns paths to built-in plugins shipped in resources/builtin-plugins (no download on install)."
+  []
+  (let [builtin-root (node-path/join (. app getAppPath) "resources" "builtin-plugins")
+        plugin-path (node-path/join builtin-root "logseq-integrate-any-api")]
+    (if (and (fs/existsSync plugin-path)
+             (fs/pathExistsSync (node-path/join plugin-path "package.json")))
+      [plugin-path]
+      [])))
+
 (defn get-ls-default-plugins
   []
   (let [plugins-root (node-path/join (get-ls-dotdir-root) "plugins")
         _ (when-not (fs/existsSync plugins-root)
             (fs/mkdirSync plugins-root))
         dirs (js->clj (fs/readdirSync plugins-root #js{"withFileTypes" true}))
-        dirs (->> dirs
-                  (filter #(.isDirectory %))
-                  (filter (fn [f] (not (some #(string/starts-with? (.-name f) %) ["_" "."]))))
-                  (map #(node-path/join plugins-root (.-name %))))]
-    dirs))
+        user-dirs (->> dirs
+                       (filter #(.isDirectory %))
+                       (filter (fn [f] (not (some #(string/starts-with? (.-name f) %) ["_" "."]))))
+                       (map #(node-path/join plugins-root (.-name %))))
+        builtin (get-builtin-plugin-paths)]
+    (into [] (concat builtin user-dirs))))
 
 (defn- set-fetch-agent-proxy
   "Set proxy for fetch agent(plugin system)

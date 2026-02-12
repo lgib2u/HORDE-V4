@@ -71,6 +71,7 @@
         "webpack-mobile-build": "npx webpack build --mode production --config-name mobile",
         "sync-android-release": "yarn clean && yarn release-mobile && rm -rf ./static/mobile/**/*.map && npx cap sync android",
         "sync-ios-release": "yarn clean && yarn release-mobile && rm -rf ./static/mobile/**/*.map && npx cap sync ios",
+        "build:builtin-plugin": "cd resources/builtin-plugins/logseq-integrate-any-api && yarn install && yarn build",
         "clean": "gulp clean",
         "test": "run-s cljs:test cljs:run-test",
         "report": "run-s cljs:report",

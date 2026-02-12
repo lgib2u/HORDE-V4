@@ -183,18 +183,26 @@
          (map #(some-> (string/replace-first % files-path "")
                        (string/replace #"^/+" "")) files))))))
 
+(def ^:private builtin-integrate-any-api-web-url "https://github.com/eefahd/logseq-integrate-any-api")
+
 (def load_user_preferences
   (fn []
     (let [repo ""
           path (plugin-handler/get-ls-dotdir-root)
           path (util/node-path.join path "preferences.json")]
-      (if (util/electron?)
-        (p/let [_ (fs/create-if-not-exists repo nil path)
-                json (fs/read-file nil path)
-                json (if (string/blank? json) "{}" json)]
-          (js/JSON.parse json))
-        (p/let [json (idb/get-item path)]
-          (or json #js {}))))))
+      (p/let [prefs (if (util/electron?)
+                      (p/let [_ (fs/create-if-not-exists repo nil path)
+                              json (fs/read-file nil path)
+                              json (if (string/blank? json) "{}" json)]
+                        (js/JSON.parse json))
+                      (p/let [json (idb/get-item path)]
+                        (or json #js {})))]
+        ;; On web, ensure built-in integrate-any-api plugin is in externals so it loads by default
+        (when (and (not (util/electron?)) prefs)
+          (let [ext (gobj/get prefs "externals")]
+            (when (or (nil? ext) (zero? (.-length ext)))
+              (gobj/set prefs "externals" #js [builtin-integrate-any-api-web-url]))))
+        prefs))))
 
 (def save_user_preferences
   (fn [^js data]
@@ -206,9 +214,40 @@
           (fs/write-plain-text-file! repo nil path (js/JSON.stringify data nil 2) {:skip-compare? true})
           (idb/set-item! path data))))))
 
+(def ^:private integrate-any-api-id "logseq-integrate-any-api")
+
+(def ^:private default-ask-ollama-config
+  "Default API config for Ask Ollama (response as child)."
+  #js {:id "builtin-ask-ollama"
+       :name "Ask Ollama"
+       :requestType "ollama"
+       :endpoint "http://localhost:11434/api/generate"
+       :method "POST"
+       :headers "{}"
+       :body "{\"model\": \"llama2\", \"prompt\": \"$1\", \"stream\": false}"
+       :contentType "json"
+       :responseAction "write_child_below"
+       :responseFormattingMethod "raw"})
+
+(defn- load-dotdir-settings [key]
+  (let [loader (plugin-handler/make-fn-to-load-dotdir-json "settings" #js {})]
+    (loader key)))
+
+(defn- merge-default-integrate-any-api-settings [^js data key-str]
+  (if (and data (= key-str integrate-any-api-id)
+           (let [lst (.-apiConfigList data)]
+             (or (nil? lst) (zero? (.-length lst)))))
+    (do (gobj/set data "apiConfigList" #js [default-ask-ollama-config])
+        data)
+    data))
+
 (def load_plugin_user_settings
-  ;; results [path data]
-  (plugin-handler/make-fn-to-load-dotdir-json "settings" #js {}))
+  ;; results [path data]. For logseq-integrate-any-api, injects default "Ask Ollama" config (response as child) when apiConfigList is empty.
+  (fn [key]
+    (p/let [[path data] (load-dotdir-settings key)
+            key-str    (when key (name key))
+            data'     (merge-default-integrate-any-api-settings (or data #js {}) (or key-str ""))]
+      [path data'])))
 
 (def save_plugin_user_settings
   (fn [key ^js data]
